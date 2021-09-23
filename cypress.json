@@ -1,0 +1,8 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "testFiles": "**/*.spec.{js,ts}",
+  "integrationFolder": "test/e2e",
+  "pluginsFile": "test/e2e/plugins/index.ts",
+  "supportFile": false,
+  "video": false
+}

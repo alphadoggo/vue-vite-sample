@@ -1,0 +1,26 @@
+# OS-specific weirdness
+.DS_Store
+thumb.db
+
+# log files
+*.log
+/log
+
+# local files and folders
+*.local
+local/
+
+# dist folder
+dist/
+
+# dependencies (keep node_modules in repo, but not native stuff; use npm rebuild on differing OS platforms)
+/node_modules/**/*.cache
+/node_modules/**/*.node
+/node_modules/**/*.o
+/node_modules/**/*.a
+/node_modules/**/*.mk
+/node_modules/**/*.gypi
+/node_modules/**/*.target
+/node_modules/**/.deps/
+/node_modules/**/build/Makefile
+/node_modules/**/**/build/Makefile
