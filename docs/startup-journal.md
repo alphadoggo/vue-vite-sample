@@ -10,7 +10,7 @@
 
 - `yarn create vite`
 - `yarn`
-- `yarn add -D eslint eslint-plugin-vue @vue/eslint-config-typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin`
+- `yarn add -D eslint eslint-plugin-vue vue-eslint-parser @vue/eslint-config-typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin`
 - `yarn add -D husky lint-staged`
 - `yarn add -D prettier eslint-plugin-prettier @vue/eslint-config-prettier`
 - `yarn add -D stylelint stylelint-config-recommended stylelint-config-standard`
@@ -132,8 +132,8 @@
   ```
 
 - `git init`
-- `git config user.name "Paul Tiseo"`
-- `git config user.email "ptiseo@metacodestudios.com"`
+- `git config user.name "<first and last>"`
+- `git config user.email "<appropriate@email.address>"`
 - `git add -A`
 - `git commit -m "configured baseline"`
 
@@ -195,12 +195,8 @@
     >
       Displayed as a flexbox container.
     </div>
-    <div class="block lg:inline">
-      Inline for larger screens and block for others.
-    </div>
-    <div class="inline lg:block">
-      Inline for larger screens and block for others.
-    </div>
+    <div class="block lg:inline">Inline for larger screens and block for others.</div>
+    <div class="inline lg:block">Inline for larger screens and block for others.</div>
     <div class="block">
       <div class="inline md:hidden">Visible on a Small Screen</div>
       <div class="hidden md:inline">Hidden on a Small Screen</div>
@@ -234,17 +230,58 @@
 
 ## ADDING CYPRESS AND JEST
 
-- `yarn add -D cypress @cypress/vue @cypress/vite-dev-server start-server-and-test`
+### Cypress
+
+- `yarn add -D cypress @cypress/vue @cypress/vite-dev-server start-server-and-test @cypress/webpack-dev-server webpack-dev-server`
+- under `/tests`, create an `e2e` folder, then the following subfolders: fixtures, integrations, plugins, screenshots, support, videos
 - add `cypress.json` config file:
 
   ```json
-
+  {
+    "baseUrl": "http://localhost:3000",
+    "testFiles": "**/*.spec.{js,ts}",
+    "fixturesFolder": "tests/e2e/fixtures",
+    "integrationFolder": "tests/e2e/integration",
+    "pluginsFile": "tests/e2e/plugins/index.ts",
+    "screenshotsFolder": "tests/e2e/screenshots",
+    "supportFile": "tests/e2e/support/index.ts",
+    "videosFolder": "tests/e2e/videos"
+  }
   ```
 
 - add `"test:e2e": "start-server-and-test dev http-get://localhost:3000 cypress"` and `"cypress": "cypress run"` to `scripts` in `package.json`
 - add `"types": ["vite/client", "@types/jest", "cypress"]` to `tsconfig.json`
 
-- add `"types": ["vite/client", "@types/jest", "cypress"]` to `tsconfig.json`
+### Jest
+
+- `yarn add -D jest ts-jest @types/jest @vue/vue3-jest@27-alpha.1 @vue/test-utils@next`
+- `npx ts-jest config:init`
+- create test\unit folder
+- add a sample `test\unit\sample1.spec.js` test (see repo)
+- configure `jest.config.js` as:
+
+  ```js
+  /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+  module.exports = {
+    preset: 'ts-jest',
+    testEnvironment: 'jsdom',
+    roots: ['tests/unit'],
+    transform: {
+      '^.+\\.vue$': '@vue/vue3-jest',
+    },
+    moduleFileExtensions: ['json', 'js', 'jsx', 'ts', 'tsx', 'vue'],
+    moduleNameMapper: {
+      '^@/(.*)$': '<rootDir>/src/$1',
+    },
+  }
+  ```
+
+- add `"test:unit": "jest"` line to `package.json` in `scripts` property
+- test run jest at command line: `yarn test:unit`
+
+## VUEX
+
+- `yarn add`
 
 ## REFERENCES USED
 
